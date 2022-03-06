@@ -1,0 +1,6 @@
+module Pods_BoxueDataKit {
+  umbrella header "Pods-BoxueDataKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -12,7 +12,7 @@ extension String {
     public static func localized(of key: String, comment: String = "") -> String {
         return NSLocalizedString(key,
                                  tableName: "Localizable",
-                                 bundle: Bundle.init(identifier: "com.techsun.zhonghua")!,
+                                 bundle: Bundle.main,
                                  comment: comment)
     }
 }

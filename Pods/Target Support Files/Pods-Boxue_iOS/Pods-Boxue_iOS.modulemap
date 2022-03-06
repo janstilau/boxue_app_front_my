@@ -1,0 +1,6 @@
+module Pods_Boxue_iOS {
+  umbrella header "Pods-Boxue_iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

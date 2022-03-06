@@ -104,6 +104,7 @@ public class MainViewController: NiblessViewController {
     }
     
     public func presentBrowsing() {
+        
         remove(childViewController: launchViewController)
         
         let browseViewControllerPresent: BrowseViewController
