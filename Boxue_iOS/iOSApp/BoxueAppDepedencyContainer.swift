@@ -10,7 +10,12 @@ import Foundation
 import RxSwift
 import BoxueDataKit
 
+/*
+ 依赖注入, 要保证的是, 注入的是一个抽象类的实现类, 而在被注入的对象里面, 是根据这个抽象类的抽象接口在编码.
+ 只有这样, 这个注入才是有意义的, 才可以通过传递不同的对象, 来让被注入的类产生不同的行为.
+ */
 public class BoxueAppDepedencyContainer {
+    
     let sharedMainViewModel: MainViewModel
     let sharedUserSessionRepository: BoxueUserSessionRepository
     
@@ -36,7 +41,9 @@ public class BoxueAppDepedencyContainer {
     }
     
     public func makeMainViewController() -> MainViewController {
-        let launchViewController = makeLaunchViewController()
+        let launchViewController = {
+            return self.makeLaunchViewController()
+        }()
         let guideViewControllerFactory = {
             return self.makeGuideViewController()
         }
@@ -71,6 +78,7 @@ public class BoxueAppDepedencyContainer {
 
 extension BoxueAppDepedencyContainer: LaunchViewModelFactory {
     public func makeLaunchViewModel() -> LaunchViewModel {
+        // LaunchViewController 中, 获取 ViewModel 的部分, 真正的实现在这里. 
         return LaunchViewModel(userSessionRepository: self.sharedUserSessionRepository,
                                guideResponder: self.sharedMainViewModel,
                                browserResponder: self.sharedMainViewModel)

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ 之所以, 要有 NiblessView, NiblessVC 是因为, 如果不定义这些方法, Xcode 会提示报错. 
+ */
 open class NiblessView: UIView {
     
     public override init(frame: CGRect) {

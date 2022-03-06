@@ -28,6 +28,4 @@ public class DissolveAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(true)
         }
     }
-    
-    
 }

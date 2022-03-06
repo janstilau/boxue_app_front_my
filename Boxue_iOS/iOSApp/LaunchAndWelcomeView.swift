@@ -25,20 +25,23 @@ public class LaunchAndWelcomeView: NiblessView {
     }()
     
     let appTitleView: UIView = {
-        let frame = CGRect(x: 0, y: 0, width: LaunchAndWelcomeView.APP_TITLE_WIDTH, height: LaunchAndWelcomeView.APP_TITLE_HEIGHT)
+        let frame = CGRect(x: 0, y: 0,
+                           width: LaunchAndWelcomeView.APP_TITLE_WIDTH,
+                           height: LaunchAndWelcomeView.APP_TITLE_HEIGHT)
         let view = UIView(frame: frame)
         let gradient = CAGradientLayer()
-
+        
         gradient.frame = view.bounds
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        // 是一个从左上角, 到右下角, 逐步渐变颜色的效果
         gradient.colors = [
             Color.appTitleGradientBegin.cgColor,
             Color.appTitleGradientMid.cgColor,
             Color.appTitleGradientEnd.cgColor
         ]
         view.layer.addSublayer(gradient)
-
+        
         let label = UILabel(frame: view.bounds)
         label.text = .appTitle
         label.numberOfLines = 0
@@ -47,6 +50,12 @@ public class LaunchAndWelcomeView: NiblessView {
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle).bold()
         
         view.addSubview(label)
+        // The view’s alpha channel determines how much of the view’s content and background shows through. Fully or partially opaque pixels allow the underlying content to show through but fully transparent pixels block that content.
+        /*
+         Label 的 alpha 通道, 来控制是否显示内容.
+         Label 是黑色的, 非文字的地方透明色, 最终显示效果就是, 渐变色的文字.
+         其实是, 文字所在的区域的渐变才能显示, 其他的地方渐变都变透明了. 最终, 显示出渐变颜色的效果. 
+         */
         view.mask = label
         
         return view
@@ -75,7 +84,13 @@ public class LaunchAndWelcomeView: NiblessView {
         return label
     }()
     
-    /// - Public methods
+    /*
+     - (void)willMoveToSuperview:(nullable UIView *)newSuperview;
+     - (void)didMoveToSuperview;
+     - (void)willMoveToWindow:(nullable UIWindow *)newWindow;
+     - (void)didMoveToWindow;
+     通过这些方法, 可以让 SubView 的构建延后. 但是代价是, 必须要有一个成员变量来记录是否已经进行过初始化了.
+     */
     public override func didMoveToWindow() {
         super.didMoveToWindow()
         

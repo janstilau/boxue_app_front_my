@@ -44,10 +44,10 @@ public class BoxueUserSessionRepository: UserSessionRepository {
         // 下面这里，如果读取用户session失败的话，我们就在recover里面把它恢复成false,表示
         // 未登陆就行了（这里，我们并不想把这个错误扩散出去。）。
         return firstly {
-                readUserSession()
-            }
-            .then { _ in Guarantee.value(true)}
-            .recover{ _ in Guarantee.value(false)}
+            readUserSession()
+        }
+        .then { _ in Guarantee.value(true)}
+        .recover{ _ in Guarantee.value(false)}
         
         // 另外，Pormise给所有的wrapper提供了一个on参数，允许我们定义他们的closure执行的队列,因为所有的.then, .done都是执行在
         // 主线程的，有时候我们需要执行在其他的线程来处理一些耗时操作

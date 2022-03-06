@@ -8,6 +8,7 @@
 
 import Foundation
 
+// 统一颜色值. 
 public struct Color {
     public static let background = UIColor(0x5AC8FA)
     public static let lightGray2 = UIColor(0xD1D1D6)

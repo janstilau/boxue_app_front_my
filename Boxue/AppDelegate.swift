@@ -11,10 +11,6 @@ import Boxue_iOS
 
 // carthage update --platform iOS --no-use-binaries
 
-/*
- 在OC的项目中还能看到main函数入口，可以看到main函数入口是一个UIApplicationMain方法，该方法会创建一个app实例UIApplication，并通过传入的AppDelegate类名实例化应用程序代理对象，并创建消息循环。
- 我们可以在代码中通过UIApplication.share来获取到app实例，UIApplication对象和AppDelegate对象会一直存在app的生命周期中。当然，在swift项目中，main函数入口已经被隐藏了，AppDelegate也通过@UIApplicationMain注解来指定了.
- */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

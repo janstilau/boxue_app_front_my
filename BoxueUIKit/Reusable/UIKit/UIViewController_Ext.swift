@@ -10,6 +10,7 @@ import Foundation
 import BoxueDataKit
 
 extension UIViewController {
+    
     public func addFullScreen(childViewController child: UIViewController) {
         guard child.parent == nil else {
             return
@@ -26,6 +27,12 @@ extension UIViewController {
             view.bottomAnchor.constraint(equalTo: child.view.bottomAnchor)
             ].compactMap {$0})
         
+        /*
+         Your view controller can override this method when it wants to react to being added to a container.
+         If you are implementing your own container view controller, it must call the didMove(toParent:) method of the child view controller after the transition to the new controller is complete or, if there is no transition, immediately after calling the addChild(_:) method.
+         The removeFromParent() method automatically calls the didMove(toParent:) method of the child view controller after it removes the child.
+         */
+        // 这主要是给 VC 一个触发点, 如果需要在里面写某些逻辑.
         child.didMove(toParent: self)
     }
     

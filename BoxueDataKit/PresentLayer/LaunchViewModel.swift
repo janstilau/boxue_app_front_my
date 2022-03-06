@@ -34,6 +34,10 @@ public class LaunchViewModel {
     
     /// - Methods
     public func gotoNextScreen() {
+        guideResponder.guide()
+        
+        return
+        
         isFirstLaunch ? guideResponder.guide() : browserResponder.browse()
     }
 }

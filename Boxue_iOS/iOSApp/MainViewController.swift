@@ -48,10 +48,6 @@ public class MainViewController: NiblessViewController {
         super.init()
     }
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     public override func loadView() {
         self.view = MainRootView()
     }
@@ -66,9 +62,9 @@ public class MainViewController: NiblessViewController {
         subscribe(to: observable)
     }
     
+    // ViewModel 发出的信号处理.
     func subscribe(to observable: Observable<MainViewStatus>) {
-        observable.subscribe(onNext: {
-            [weak self] status in
+        observable.subscribe(onNext: { [weak self] status in
             guard let `self` = self else { return }
             self.present(status)
         }).disposed(by: disposeBag)
@@ -90,13 +86,14 @@ public class MainViewController: NiblessViewController {
     }
     
     public func presentGuiding() {
+        // 直到这个时候, 才进行了 Guide 的创建工作.
         let guideViewController = self.makeGuideViewController()
         guideViewController.transitioningDelegate = self
         
         present(guideViewController, animated: true) {
             [weak self] in
             guard let `self` = self else { return }
-            
+            // 把 Luanch 删除了.
             self.remove(childViewController: self.launchViewController)
         }
         
@@ -120,17 +117,16 @@ public class MainViewController: NiblessViewController {
         // presentingViewController
         if guideViewController?.presentingViewController != nil {
             guideViewController = nil
-            // dismiss
             dismiss(animated: true)
         }
     }
 }
 
 extension MainViewController: UIViewControllerTransitioningDelegate {
+    
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return dissolveTransitions
     }
 }
 
-class GenericError: Error {
-}
+class GenericError: Error { }

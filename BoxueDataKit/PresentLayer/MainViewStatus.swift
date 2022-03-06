@@ -14,6 +14,7 @@ public enum MainViewStatus {
     case browsing
 }
 
+// 这个为什么要专门实现一下. 
 extension MainViewStatus: Equatable {
     public static func == (lhs: MainViewStatus, rhs: MainViewStatus) -> Bool {
         switch (lhs, rhs) {

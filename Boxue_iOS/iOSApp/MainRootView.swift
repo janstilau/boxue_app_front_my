@@ -22,7 +22,6 @@ class MainRootView: NiblessView {
        let imageView = UIImageView(image: UIImage(named: "LaunchScreen_iPhoneX_dark"))
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = Color.background
-        
         return imageView
     }()
     

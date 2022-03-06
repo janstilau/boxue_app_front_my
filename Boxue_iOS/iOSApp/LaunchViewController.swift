@@ -11,12 +11,13 @@ import RxSwift
 import BoxueDataKit
 import BoxueUIKit
 
+// VC 没有直接和把 View 的构建细节, 写到自身的内部. View 如何构建, 交由 View 内部自己进行管理. 
 public class LaunchViewController: NiblessViewController {
 
     let viewModel: LaunchViewModel
     let bag: DisposeBag = DisposeBag()
     
-    /// - Methods
+    // 传入的不是一个 ViewModel, 而是一个 ViewModel 的工厂类.
     init(launchViewModelFactory: LaunchViewModelFactory) {
         self.viewModel = launchViewModelFactory.makeLaunchViewModel()
         super.init()
@@ -26,7 +27,9 @@ public class LaunchViewController: NiblessViewController {
         self.view = LaunchRootView(viewModel: viewModel)
     }
     
-    override public func viewDidAppear(_ animated: Bool) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
         viewModel.gotoNextScreen()
     }
 }
