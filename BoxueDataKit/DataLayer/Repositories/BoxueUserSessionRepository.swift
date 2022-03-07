@@ -9,9 +9,19 @@
 import Foundation
 import PromiseKit
 
+/*
+ 之前, 对于只有一个实现类的接口嗤之以鼻, 现在算是明白了, 之所以自己不习惯这种写法, 是因为业务场景不够复杂, 没有遇到过这种需要替换实现的地方.
+ 如此看来, Mock 的存在, 使得在类的设计中, 进行抽象是很有必要的.
+ */
+
+// BoxueUserSessionRepository 根据里面的工具对象, 实现自己的接口实现.
+/*
+ 这种一个 Manager 调用自己各个工具类, 来实现自己接口的方式非常实现.
+ Manager 是一个对外公开的接口, 算作是门面模式. 真正的实现, 交给具体业务相关的工具类对象, 自己只是做一层转发工作.
+ 包装一层的意义在于, 使用者无需知道 Module 的实现细节, 使用门面类提供的简单的接口, 就能完成自己的实现. 
+*/
 public class BoxueUserSessionRepository: UserSessionRepository {
     
-    /// - Properties
     let userSessionStore: UserSessionStore
     let authRemoteAPI: AuthRemoteAPI
     

@@ -11,10 +11,8 @@ import PromiseKit
 
 public class FakeUserSessionStore: UserSessionStore {
     
-    /// - Properties
     let hasToken: Bool
     
-    /// - Methods
     public init(hasToken: Bool) {
         self.hasToken = hasToken
     }
@@ -38,6 +36,9 @@ public class FakeUserSessionStore: UserSessionStore {
         return Promise.value(UserSession(profile: profile, remoteUserSession: remoteSession))
     }
     
+    // WithoutToken 是报错了.
+    // 用这种方式, 实现了类似于 Result 的效果. 能返回正常值, 就可以读取关联类型的数据.
+    // 报错了, 就是出错了, 交给 Promise 的下游节点进行处理. 
     public func withoutToken() -> Promise<UserSession> {
         return Promise.init(error: DataKitError.any)
     }

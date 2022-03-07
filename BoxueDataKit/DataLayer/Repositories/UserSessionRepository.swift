@@ -9,6 +9,10 @@
 import Foundation
 import PromiseKit
 
+/*
+ 一个抽象的接口, 所有的都是返回一个异步操作.
+ 大量的使用了 PromiseKit 中的概念. 
+ */
 public protocol UserSessionRepository {
     
     func readUserSession() -> Promise<UserSession>

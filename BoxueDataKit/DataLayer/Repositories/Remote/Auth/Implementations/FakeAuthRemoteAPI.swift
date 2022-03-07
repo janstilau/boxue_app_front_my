@@ -18,13 +18,18 @@ struct Fake {
     static let token = "testToken"
 }
 
+/*
+ 在开发的过程中, 专门定义一个 Mock 类, 可以大大的简化开发的工作量.
+ 这个类, 将网络请求这一层需要依赖外部实现不稳定因素干掉, 在里面返回固定的 Fake 数据.
+ 在开发的时候, 使用固定的 Fake 数据, 可以保证代码的流程不会因为外部原因中断. 
+*/
+
 public struct FakeAuthRemoteAPI: AuthRemoteAPI {
-    
     
     public func signIn(username: String, password: Secret) -> Promise<UserSession> {
         return Promise<UserSession> { seal in
+            // Fake 的账号, 一定要是 Fake 的用户名密码.
             guard username == Fake.email && password == Fake.password else {
-                // 没有得到期望的值，比如出错，就用seal.reject，对应的catch就会执行
                 return seal.reject(DataKitError.any)
             }
             
