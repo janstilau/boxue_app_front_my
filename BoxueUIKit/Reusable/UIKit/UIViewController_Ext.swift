@@ -25,7 +25,7 @@ extension UIViewController {
             view.trailingAnchor.constraint(equalTo: child.view.trailingAnchor),
             view.topAnchor.constraint(equalTo: child.view.topAnchor),
             view.bottomAnchor.constraint(equalTo: child.view.bottomAnchor)
-            ].compactMap {$0})
+        ].compactMap {$0})
         
         /*
          Your view controller can override this method when it wants to react to being added to a container.
@@ -53,7 +53,6 @@ extension UIViewController {
         
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
-        
         self.present(alertController, animated: true, completion: nil)
     }
     

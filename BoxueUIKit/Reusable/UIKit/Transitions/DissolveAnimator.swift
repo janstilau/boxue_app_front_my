@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class DissolveAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
@@ -22,10 +23,11 @@ public class DissolveAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         containerView.addSubview(toView)
         toView.alpha = 0.0
-        UIView.animate(withDuration: duration, animations: {
+        UIView.animate(withDuration: duration) {
             toView.alpha = 1.0
-        }) { _ in
+        } completion: { _ in
             transitionContext.completeTransition(true)
         }
+
     }
 }
