@@ -17,23 +17,26 @@ PODS:
 
 DEPENDENCIES:
   - Kingfisher (~> 5.15.8)
-  - PromiseKit (~> 6.17.0)
+  - PromiseKit (from `local_pods/PromiseKit`)
   - RxCocoa (~> 4.5.0)
   - RxSwift (~> 4.5.0)
 
 SPEC REPOS:
   trunk:
     - Kingfisher
-    - PromiseKit
     - RxCocoa
     - RxSwift
 
+EXTERNAL SOURCES:
+  PromiseKit:
+    :path: local_pods/PromiseKit
+
 SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
-  PromiseKit: 996202d4cae72b7801b312abef4cd2f995b2978a
+  PromiseKit: 9ec05cee7dd859d211127d8babc7548543d8b589
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
 
-PODFILE CHECKSUM: c2ede63a2417bcaf3bd01435b3a39ad63a84d910
+PODFILE CHECKSUM: 29750c334080eeb55960e8f08c8bc993428ea185
 
 COCOAPODS: 1.11.2

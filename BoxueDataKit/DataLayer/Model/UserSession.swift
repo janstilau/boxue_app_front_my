@@ -9,6 +9,7 @@
 import Foundation
 
 public class UserSession: Codable {
+    
     public let profile: UserProfile
     public let remoteUserSession: RemoteUserSession
     

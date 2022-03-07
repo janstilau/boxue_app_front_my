@@ -8,6 +8,8 @@
 
 import Foundation
 
+// 一个纯数据类.
+// Profile 当做用户的基本信息, 这是一个通用的命名.
 public struct UserProfile: Codable, Equatable {
     
     public let name: String

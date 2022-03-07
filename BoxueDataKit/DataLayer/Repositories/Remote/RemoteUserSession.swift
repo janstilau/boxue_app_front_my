@@ -8,7 +8,9 @@
 
 import Foundation
 
+// 一个纯数据类, 存储用户网络 URL 的 Token 值. 
 public struct RemoteUserSession: Codable {
+    
     let token: String
     
     public init(token: String) {

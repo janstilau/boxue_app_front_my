@@ -10,6 +10,7 @@ import Foundation
 import PromiseKit
 
 public protocol AuthRemoteAPI {
+    
     func signIn(username: String, password: Secret) -> Promise<UserSession>
     func signUp(account: NewAccount) -> Promise<UserSession>
 }

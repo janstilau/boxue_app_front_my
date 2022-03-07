@@ -9,6 +9,9 @@
 import Foundation
 import PromiseKit
 
+/*
+ 引入了 Promise, 所有的操作, 都是一个异步操作.
+ */
 public protocol UserSessionStore {
     func save(userSession: UserSession) -> Promise<UserSession>
     func load() -> Promise<UserSession>
