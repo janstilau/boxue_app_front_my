@@ -239,7 +239,7 @@ extension SignInRootView {
             scrollView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
-            ])
+        ])
     }
     
     func activateConstraintsContentView() {
@@ -259,12 +259,12 @@ extension SignInRootView {
             contentView.bottomAnchor.constraint(equalTo: svCLG.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: svCLG.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: svCLG.trailingAnchor)
-            ])
+        ])
         
         // iOS 11后，多了一个contentInsertAdjustmentBehavior属性，scrollView知道父试图的safe area，他会自动将
         // 子试图放置在safe area内，比如iPhoneX，即使scrollView起始点在刘海下面，他的滚动内容还是会把刘海空出来。当然
         // 如果把这个属性设置成.never，滚动内容就会覆盖刘海区域了
-//        scrollView.contentInsetAdjustmentBehavior = .never
+        //        scrollView.contentInsetAdjustmentBehavior = .never
     }
     
     func activateConstraintsWelcomeLabel() {
@@ -274,7 +274,7 @@ extension SignInRootView {
             welcomeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 58),
             welcomeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             welcomeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-            ])
+        ])
     }
     
     func activateConstraintsSignInFormStack() {
@@ -284,7 +284,7 @@ extension SignInRootView {
             signInFormStack.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 58),
             signInFormStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             signInFormStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-            ])
+        ])
     }
     
     func activateConstraintsSignInButton() {
@@ -295,7 +295,7 @@ extension SignInRootView {
             signInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             signInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             signInButton.heightAnchor.constraint(equalToConstant: 50)
-            ])
+        ])
     }
     
     func activateConstraintsSignInActivityIndicator() {
@@ -304,7 +304,7 @@ extension SignInRootView {
         NSLayoutConstraint.activate([
             signInActivityIndicator.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
             signInActivityIndicator.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor)
-            ])
+        ])
     }
     
     func activateConstraintsHelpButtonStack() {
@@ -315,7 +315,7 @@ extension SignInRootView {
             helpButtonStack.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor),
             helpButtonStack.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor),
             helpButtonStack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -55)
-            ])
+        ])
     }
     
     func activateConstraintsRightsInfo() {
@@ -325,12 +325,13 @@ extension SignInRootView {
             rightsInfo.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             rightsInfo.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
             rightsInfo.widthAnchor.constraint(equalToConstant: LaunchRootView.APP_TITLE_WIDTH)
-            ])
+        ])
     }
 }
 
 /// - UI Bind
 extension SignInRootView {
+    
     func bindInteraction() {
         signInButton.rx.tap
             .bind(to: viewModel.signInButtonTapped)
@@ -350,6 +351,7 @@ extension SignInRootView {
     }
     
     func bindEmailInput() {
+        // View 的改变, 要触发 ViewModel 里面的数据改变. 
         emailInput.rx.text
             .asDriver()
             .map { $0 ?? ""}

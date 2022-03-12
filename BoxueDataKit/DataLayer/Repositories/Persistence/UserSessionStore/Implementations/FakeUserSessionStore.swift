@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 
+// 在现在的这个版本, 没有 UserSessionStore 的实际实现, 只有这一个 Fake 版本的实现.
 public class FakeUserSessionStore: UserSessionStore {
     
     let hasToken: Bool
@@ -32,7 +33,6 @@ public class FakeUserSessionStore: UserSessionStore {
     public func withToken() -> Promise<UserSession> {
         let profile = UserProfile(name:Fake.name, email: Fake.email, mobile: Fake.mobile, avatar: Fake.avatar)
         let remoteSession = RemoteUserSession(token: Fake.token)
-        
         return Promise.value(UserSession(profile: profile, remoteUserSession: remoteSession))
     }
     

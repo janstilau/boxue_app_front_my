@@ -18,6 +18,7 @@ public class SignInViewModel {
     let browseResponder: BrowseResponder
     let navigateToRequestNotification: NavigateToRequestNotification
     
+    
     public let signInButtonTapped = PublishSubject<Void>()
     public let emailInput = BehaviorSubject<String>(value: "")
     public let emailInputEnabled = BehaviorSubject<Bool>(value: true)
@@ -43,6 +44,8 @@ public class SignInViewModel {
         self.browseResponder = browseResponder
         self.navigateToRequestNotification = navigateToRequestNotification
         
+        // 这里我觉不太好, 直接 View Model 暴露一个接口, 比如 RequestSignIn 不比这种要好的太多了.
+        // 更加的清晰, 这种方式, 外界绑定, 内部绑定, 然后触发了 SignIn. 但是逻辑一点不清晰.
         signInButtonTapped.asObservable().subscribe(onNext: { [weak self] in
             guard let `self` = self else { return }
             self.signIn()
@@ -50,7 +53,8 @@ public class SignInViewModel {
     }
     
     
-    /// - Other methods
+    // ViewModel 就是控制层. 各种 Publisher 其实是 ViewState. 所以在 model action 的时候, 进行状态变更, 更新 UI 也是 ViewModel 的逻辑.
+    // 只不过, 原来的 Controller 的 UI 更新, 变为了 ViewModel 的状态更新, 而 ViewModel 的状态更新, 通过在 VC 的绑定机制, 触发了 View 的更新.
     public func indicateSigningIn() {
         emailInputEnabled.onNext(false)
         passwordInputEnabled.onNext(false)
@@ -87,12 +91,18 @@ public class SignInViewModel {
     @objc public func signIn() {
         indicateSigningIn()
         let (email, password) = getEmailAndPassword()
+        
+        // ViewModel, 就是 Controller 层的东西.
+        // 但是网络请求还是要放到特定的地方, 所以 userSessionRepository 还是必要存在的.
         userSessionRepository.signIn(email: email, password: password)
             .then { _ in
                 UNUserNotificationCenter.current().isNotificationPermissionNotDetermined()
             }.done {
                 self.transmute(withPermissionNotDetermined: $0)
-            }.catch(self.indicateSignInError)
+            }.catch(
+                // 出错了, 统一在一个地方进行处理就可以了.
+                self.indicateSignInError
+            )
     }
     
     public func transmute(withPermissionNotDetermined: Bool) {

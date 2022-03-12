@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 
+// 将, 所有的 Fake 数据, 集中在一点进行定义. 
 struct Fake {
     static let email = "lj0011977@163.com"
     static let password = "123456"

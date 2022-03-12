@@ -15,13 +15,10 @@ import PromiseKit
  */
 
 // BoxueUserSessionRepository 根据里面的工具对象, 实现自己的接口实现.
-/*
- 这种一个 Manager 调用自己各个工具类, 来实现自己接口的方式非常实现.
- Manager 是一个对外公开的接口, 算作是门面模式. 真正的实现, 交给具体业务相关的工具类对象, 自己只是做一层转发工作.
- 包装一层的意义在于, 使用者无需知道 Module 的实现细节, 使用门面类提供的简单的接口, 就能完成自己的实现. 
-*/
+
 public class BoxueUserSessionRepository: UserSessionRepository {
     
+    // 这两个, 也是接口对象, 根据 Init 函数, 可以进行依赖注入.
     let userSessionStore: UserSessionStore
     let authRemoteAPI: AuthRemoteAPI
     
