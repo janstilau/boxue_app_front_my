@@ -11,7 +11,7 @@ import UserNotifications
 import PromiseKit
 
 extension UNUserNotificationCenter {
-
+    
     func getNotificationSettings() -> Guarantee<UNNotificationSettings> {
         
         // Guarantee<T>.init中closure的类型是((T) -> Void) -> Void
@@ -26,15 +26,15 @@ extension UNUserNotificationCenter {
     
     public func isNotificationPermissionNotDetermined() -> Guarantee<Bool> {
         return firstly {
-                getNotificationSettings()
-            }.then { settings in
-                switch settings.authorizationStatus {
-                case .notDetermined:
-                    return Guarantee.value(true)
-                default:
-                    return Guarantee.value(false)
-                }
+            getNotificationSettings()
+        }.then { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                return Guarantee.value(true)
+            default:
+                return Guarantee.value(false)
             }
+        }
     }
     
     // PromiseKit中专门提供了一个类:Guarantee, 表示一个永远不会失败的承诺
@@ -49,28 +49,28 @@ extension UNUserNotificationCenter {
         // Garantee甚至提供了map，但是map只是简单的值转换，不会返回Promise<T>，如果只是单纯的转换期望值，用map，如果后续还要
         // 串联then，done等处理就用then
         return firstly {
-                getNotificationSettings()
-            }.then { settings in
-                switch settings.authorizationStatus {
-                case .authorized, .provisional:
-                    return Guarantee.value(true)
-                default:
-                    return Guarantee.value(false)
-                }
+            getNotificationSettings()
+        }.then { settings in
+            switch settings.authorizationStatus {
+            case .authorized, .provisional:
+                return Guarantee.value(true)
+            default:
+                return Guarantee.value(false)
             }
+        }
     }
     
     public func isNotificationPermissionDenied() -> Guarantee<Bool> {
         return firstly {
-                getNotificationSettings()
-            }.then { settings in
-                switch settings.authorizationStatus {
-                case .denied:
-                    return Guarantee.value(true)
-                default:
-                    return Guarantee.value(false)
-                }
+            getNotificationSettings()
+        }.then { settings in
+            switch settings.authorizationStatus {
+            case .denied:
+                return Guarantee.value(true)
+            default:
+                return Guarantee.value(false)
             }
+        }
     }
     
     public func requestAuthorization(options: UNAuthorizationOptions) -> Promise<Bool> {

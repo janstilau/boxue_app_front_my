@@ -31,6 +31,8 @@ public struct FakeAuthRemoteAPI: AuthRemoteAPI {
         return Promise<UserSession> { seal in
             // Fake 的账号, 一定要是 Fake 的用户名密码.
             guard username == Fake.email && password == Fake.password else {
+                // 使用 Promise, 在出错的地方, 直接使用 reject 就可以了.
+                // 避免了原来的使用闭包需要层层嵌套的逻辑.
                 return seal.reject(DataKitError.any)
             }
             

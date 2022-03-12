@@ -96,9 +96,11 @@ public class SignInViewModel {
         // 但是网络请求还是要放到特定的地方, 所以 userSessionRepository 还是必要存在的.
         userSessionRepository.signIn(email: email, password: password)
             .then { _ in
+                // func signIn(email: String, password: Secret) -> Promise<UserSession>
+                // 上面是 SignIn 的返回值. 所以实际上, 这里面 then 没有使用 Promise 里面的 UserSession 数据, 做后续的处理.
                 UNUserNotificationCenter.current().isNotificationPermissionNotDetermined()
             }.done {
-                self.transmute(withPermissionNotDetermined: $0)
+                self.transmute(withPermissionNotDeterJmined: $0)
             }.catch(
                 // 出错了, 统一在一个地方进行处理就可以了.
                 self.indicateSignInError
